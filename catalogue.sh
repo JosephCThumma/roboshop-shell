@@ -1,10 +1,10 @@
 script_location=$(pwd)
 
-set -e
+
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 yum install nodejs -y
-#useradd roboshop
+useradd roboshop
 mkdir -p /app
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
 rm -rf /app/*
@@ -23,3 +23,5 @@ systemctl start catalogue
 cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo
 
 yum install mongodb-org-shell -y
+
+mongo --host localhost </app/schema/catalogue.js
